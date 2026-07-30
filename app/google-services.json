@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "336831408534",
+    "project_id": "get-connect-e9bb4",
+    "storage_bucket": "get-connect-e9bb4.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:336831408534:android:427e70e249976d304455b7",
+        "android_client_info": {
+          "package_name": "com.mrudul.getconnected"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAOaokviHC1u96oEc1fbhDjxIRpZxO0Tno"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
