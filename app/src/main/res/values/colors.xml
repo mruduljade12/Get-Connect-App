@@ -3,6 +3,61 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
+    <!-- App Background -->
+    <color name="app_bg">#F4F7FC</color>
+
+    <!-- Primary Theme -->
+    <color name="primary_blue">#3B82F6</color>
+    <color name="primary_purple">#7C3AED</color>
+    <color name="secondary_blue">#60A5FA</color>
+    <color name="secondary_purple">#A78BFA</color>
+
     //splash screen
     <color name="splash_text_color">#2B1B5F</color>
+
+
+    //register page and login page and phone number page
+    <color name="input_start">#D9D6E0</color>
+    <color name="input_mid">#BACCCC</color>
+    <color name="input_end">#B8B4C7</color>
+
+    <color name="hint_color">#7C8596</color>
+
+    <color name="text_primary">#1F2937</color>
+    <color name="text_secondary">#6B7280</color>
+
+    <color name="login_btn_start">#3B82F6</color>
+    <color name="login_btn_end">#2563EB</color>
+    <color name="login_btn_border">#D5DFF8</color>
+    <color name="login_btn_text">#FFFFFFFF</color>
+
+    <!-- Google Button -->
+    <color name="google_btn_bg">#FFFFFFFF</color>
+    <color name="google_btn_border">#DADCE0</color>
+    <color name="google_btn_text">#202124</color>
+
+    <!-- Facebook Button -->
+    <color name="facebook_btn_start">#1877F2</color>
+    <color name="facebook_btn_end">#0F5FC4</color>
+    <color name="facebook_btn_text">#FFFFFFFF</color>
+
+    <!-- Get OTP Button -->
+    <color name="otp_btn_start">#06B6D4</color>
+    <color name="otp_btn_end">#0284C7</color>
+    <color name="otp_btn_text">#FFFFFFFF</color>
+
+    <!-- Verify Button -->
+    <color name="verify_btn_start">#10B981</color>
+    <color name="verify_btn_end">#059669</color>
+    <color name="verify_btn_text">#FFFFFFFF</color>
+
+    <!-- Disabled Button -->
+    <color name="button_disabled">#C7CEDB</color>
+    <color name="button_disabled_text">#7C8596</color>
+
+    <!-- Error -->
+    <color name="error_red">#EF4444</color>
+
+    <!-- Success -->
+    <color name="success_green">#10B981</color>
 </resources>

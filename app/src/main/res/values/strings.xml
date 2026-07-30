@@ -5,4 +5,16 @@
 
     //splash screen
     <string name="welcome">Welcome to our community.</string>
+
+    //register page and login page and phone number page
+    <string name="name">User Name</string>
+    <string name="email">User Email</string>
+    <string name="password">User Password</string>
+    <string name="google">Google</string>
+    <string name="facebook">Facebook</string>
+    <string name="register">Register</string>
+    <string name="login">Login</string>
+    <string name="old_user">Already have an account.</string>
+    <string name="new_user">Dont have an account.</string>
+    <string name="new_phone">Sign Up With Phone.</string>
 </resources>
