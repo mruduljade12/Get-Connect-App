@@ -3,6 +3,7 @@ package com.mrudul.getconnected.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.Patterns;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -15,6 +16,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.FirebaseDatabase;
 import com.mrudul.getconnected.R;
 
 import java.util.Objects;
@@ -30,6 +32,7 @@ public class Register extends AppCompatActivity {
 
     // declaration of firebase services
     FirebaseAuth auth;
+    FirebaseDatabase database;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +47,7 @@ public class Register extends AppCompatActivity {
 
         //initialization of firebase services
         auth = FirebaseAuth.getInstance();
+        database = FirebaseDatabase.getInstance();
 
         // initialization of variables
         oldUser = findViewById(R.id.oldUser);
@@ -64,8 +68,62 @@ public class Register extends AppCompatActivity {
             String emailInput = email.getText().toString().trim();
             String passwordInput = password.getText().toString().trim();
 
+
+            // username validation
+            if (usernameInput.isEmpty()) {
+                username.setError("Username is required");
+                username.requestFocus();
+                return;
+            }
+
+            if (usernameInput.length() < 3) {
+                username.setError("Username must be at least 3 characters");
+                username.requestFocus();
+                return;
+            }
+
+            // Only allow letters, numbers, and underscores
+            if (!usernameInput.matches("^[a-zA-Z0-9_]+$")) {
+                username.setError("Username can only contain letters, numbers, and underscores");
+                username.requestFocus();
+                return;
+            }
+
+            // email validation
+            if (emailInput.isEmpty()) {
+                email.setError("Email is required");
+                email.requestFocus();
+                return;
+            }
+
+            if (!Patterns.EMAIL_ADDRESS.matcher(emailInput).matches()) {
+                email.setError("Please enter a valid email address");
+                email.requestFocus();
+                return;
+            }
+
+            // password validation
+            if (passwordInput.isEmpty()) {
+                password.setError("Password is required");
+                password.requestFocus();
+                return;
+            }
+
+            if (passwordInput.length() < 6) {
+                password.setError("Password must be at least 6 characters long");
+                password.requestFocus();
+                return;
+            }
+
+
+            // prevent double taps during API call
+            registerBtn.setEnabled(false);
+
             auth.createUserWithEmailAndPassword(emailInput,passwordInput)
                     .addOnCompleteListener(task -> {
+
+                        // again enable
+                        registerBtn.setEnabled(true);
 
                         if (task.isSuccessful()){
 
