@@ -1,5 +1,6 @@
 package com.mrudul.getconnected.activities;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -18,17 +19,20 @@ import androidx.core.view.WindowInsetsCompat;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 import com.mrudul.getconnected.R;
+import com.mrudul.getconnected.models.UserInfoModel;
 
 import java.util.Objects;
 
 public class Register extends AppCompatActivity {
 
     private static final String TAG = "RegisterActivity";
+    private static final String USER_NODE = "Users";
 
     // declaration of variables
     TextView oldUser,signUpWithPhone;
     EditText username,email,password;
     AppCompatButton registerBtn,googleBtn,facebookBtn;
+    
 
     // declaration of firebase services
     FirebaseAuth auth;
@@ -128,6 +132,12 @@ public class Register extends AppCompatActivity {
                         if (task.isSuccessful()){
 
                             // User Account Created Successful
+                            UserInfoModel user = new UserInfoModel(usernameInput,emailInput,passwordInput);
+                            String id = task.getResult().getUser().getUid();
+
+                            database.getReference().child(USER_NODE).child(id).setValue(user);
+
+
                             Intent intent = new Intent(Register.this, MainActivity.class);
                             startActivity(intent);
                             finish();

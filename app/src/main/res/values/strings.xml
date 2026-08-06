@@ -17,4 +17,10 @@
     <string name="old_user">Already have an account.</string>
     <string name="new_user">Dont have an account.</string>
     <string name="new_phone">Sign Up With Phone.</string>
+
+
+    // Fragment Strings
+    <string name="chat">Chat</string>
+    <string name="status">Status</string>
+    <string name="profile">Profile</string>
 </resources>

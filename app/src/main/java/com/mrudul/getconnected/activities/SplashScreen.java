@@ -18,6 +18,7 @@ import com.mrudul.getconnected.R;
 public class SplashScreen extends AppCompatActivity {
 
     FirebaseAuth auth;
+    private static final int DELAY = 3000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +56,7 @@ public class SplashScreen extends AppCompatActivity {
             }
         };
 
-        handler.postDelayed(runnable,3000);
+        handler.postDelayed(runnable,DELAY);
     }
 
 }
