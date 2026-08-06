@@ -10,6 +10,7 @@
     <string name="name">User Name</string>
     <string name="email">User Email</string>
     <string name="password">User Password</string>
+    <string name="address">User Address</string>
     <string name="google">Google</string>
     <string name="facebook">Facebook</string>
     <string name="register">Register</string>
@@ -17,10 +18,13 @@
     <string name="old_user">Already have an account.</string>
     <string name="new_user">Dont have an account.</string>
     <string name="new_phone">Sign Up With Phone.</string>
+    <string name="edit">Edit</string>
+    <string name="save">Save</string>
 
 
     // Fragment Strings
     <string name="chat">Chat</string>
     <string name="status">Status</string>
     <string name="profile">Profile</string>
+    <string name="user_name">User Name</string>
 </resources>

@@ -2,17 +2,18 @@ package com.mrudul.getconnected.models;
 
 public class UserInfoModel {
 
-    private String userId,profilePic,username,email,password,lastMessage;
+    private String userId,profilePic,username,email,password,address,lastMessage;
 
 
     // profile constructor
-    public UserInfoModel(String userId, String profilePic, String username, String email, String password, String lastMessage) {
+    public UserInfoModel(String userId, String profilePic, String username, String email, String password,String address, String lastMessage) {
         this.userId = userId;
         this.profilePic = profilePic;
         this.username = username;
         this.email = email;
         this.password = password;
         this.lastMessage = lastMessage;
+        this.address = address;
     }
 
     // empty constructor for only retrieve values
@@ -24,6 +25,24 @@ public class UserInfoModel {
         this.username = username;
         this.email = email;
         this.password = password;
+    }
+
+
+    // Constructor for profile page
+    public UserInfoModel(String username,String email,String address,String password){
+        this.username = username;
+        this.email = email;
+        this.address = address;
+        this.password = password;
+    }
+
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public String getUserId() {

@@ -2,13 +2,26 @@ package com.mrudul.getconnected.fragments;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
 
+import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.mrudul.getconnected.R;
+import com.mrudul.getconnected.models.UserInfoModel;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -16,6 +29,18 @@ import com.mrudul.getconnected.R;
  * create an instance of this fragment.
  */
 public class ProfileFragment extends Fragment {
+
+    boolean isEditable = false;
+    private static final String USER_NODE = "Users";
+    UserInfoModel userModel;
+    EditText name,email,address,password;
+    AppCompatButton saveBtn,editBtn;
+
+
+    // Firebase initialization
+    FirebaseAuth auth;
+    FirebaseDatabase database;
+    DatabaseReference reference;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -62,5 +87,144 @@ public class ProfileFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_profile, container, false);
+    }
+
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        auth = FirebaseAuth.getInstance();
+        String id  = auth.getCurrentUser().getUid();
+
+        database = FirebaseDatabase.getInstance();
+        reference = database.getReference(USER_NODE).child(id);
+
+        saveBtn = view.findViewById(R.id.saveBtn);
+        editBtn = view.findViewById(R.id.editBtn);
+        name = view.findViewById(R.id.pUserName);
+        email = view.findViewById(R.id.pEmail);
+        address = view.findViewById(R.id.pAddress);
+        password = view.findViewById(R.id.pPassword);
+
+        displayData();
+
+
+        // set edit text disable
+        name.setEnabled(false);
+        email.setEnabled(false);
+        address.setEnabled(false);
+        password.setEnabled(false);
+
+        editBtn.setOnClickListener(v->{
+            if (isEditable){
+
+                isEditTextEditable(false);
+                isEditable = false;
+                editBtn.setText("Edit");
+            } else {
+                isEditTextEditable(true);
+                isEditable = true;
+                editBtn.setText("Cancel");
+            }
+        });
+
+
+        saveBtn.setOnClickListener(v->{
+
+            String nameInput = name.getText().toString();
+            String emailInput = email.getText().toString();
+            String addressInput = address.getText().toString();
+            String passwordInput = password.getText().toString();
+
+            // username validation
+            if (nameInput.isEmpty()) {
+                name.setError("Username is required");
+                name.requestFocus();
+                return;
+            }
+
+            if (nameInput.length() < 3) {
+                name.setError("Username must be at least 3 characters");
+                name.requestFocus();
+                return;
+            }
+
+            // Only allow letters, numbers, and underscores
+            if (!nameInput.matches("^[a-zA-Z0-9_]+$")) {
+                name.setError("Username can only contain letters, numbers, and underscores");
+                name.requestFocus();
+                return;
+            }
+
+            // email validation
+            if (emailInput.isEmpty()) {
+                email.setError("Email is required");
+                email.requestFocus();
+                return;
+            }
+
+            if (!Patterns.EMAIL_ADDRESS.matcher(emailInput).matches()) {
+                email.setError("Please enter a valid email address");
+                email.requestFocus();
+                return;
+            }
+
+            // password validation
+            if (passwordInput.isEmpty()) {
+                password.setError("Password is required");
+                password.requestFocus();
+                return;
+            }
+
+            if (passwordInput.length() < 6) {
+                password.setError("Password must be at least 6 characters long");
+                password.requestFocus();
+                return;
+            }
+
+            userModel = new UserInfoModel(nameInput,emailInput,addressInput,passwordInput);
+            reference.setValue(userModel);
+
+            displayData();
+
+            isEditTextEditable(false);
+            editBtn.setText("Edit");
+        });
+    }
+
+    private void isEditTextEditable(boolean isEditable) {
+
+        name.setEnabled(isEditable);
+        email.setEnabled(isEditable);
+        address.setEnabled(isEditable);
+        password.setEnabled(isEditable);
+    }
+
+    private void displayData() {
+
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                if (snapshot.exists()){
+
+                    userModel = snapshot.getValue(UserInfoModel.class);
+                    if (userModel != null){
+                        name.setText(userModel.getUsername());
+                        email.setText(userModel.getEmail());
+                        address.setText(userModel.getAddress());
+                        password.setText((userModel.getPassword()));
+                    } else {
+                        Toast.makeText(getContext(),"User not exist",Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(getContext(),error.getMessage(),Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

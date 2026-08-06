@@ -66,4 +66,12 @@
     <color name="head_start">#2563EB</color>
     <color name="head_mid">#4F46E5</color>
     <color name="head_end">#7C3AED</color>
+
+    <color name="head_text">#FFEFEF</color>
+
+
+<!--    Profile Page Colors-->
+    <color name="p_btn_start">#2563EB</color>
+    <color name="p_btn_end">#7C3AED</color>
+    <color name="p_btn_stroke">#B8C7FF</color>
 </resources>
